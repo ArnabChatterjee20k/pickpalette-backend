@@ -6,5 +6,6 @@ const supabaseKey = process.env.supabaseKey
 export const supabase = createClient(supabaseUrl, supabaseKey)
 
 export const tables = {
-    newsletter:"newsletter"
+    newsletter:"newsletter",
+    feedback:"feedback"
 }

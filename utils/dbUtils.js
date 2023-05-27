@@ -16,9 +16,30 @@ export async function emailExists(email) {
 export async function addEmail(email) {
   const emailExist = await emailExists(email);
   if (emailExist) return statusCode.EXISTS;
-  const { data, error ,status} = await supabase
+  const { data, error, status } = await supabase
     .from(tables.newsletter)
     .insert({ email })
     .select("email");
-    return statusCode.SUCCESS
+  return statusCode.SUCCESS;
+}
+
+export async function addFeedback(feedback) {
+  const { data, error, status } = await supabase
+    .from(tables.feedback)
+    .insert({ feedback });
+  if (error || status != 201) {
+    console.log(error);
+    console.log({status});
+    return statusCode.ERROR
+  };
+  return statusCode.SUCCESS;
+}
+
+export async function getAllFeedback() {
+  const { data, error, status } = await supabase
+    .from(tables.feedback)
+    .select("*");
+
+  if (status !== 200) return statusCode.ERROR;
+  return data;
 }
